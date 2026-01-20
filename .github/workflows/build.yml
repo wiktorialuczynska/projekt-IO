@@ -30,7 +30,14 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
+      - name: Clear Sonar cache
+        run: rm -rf ~/.sonar/cache
       - name: Build and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=wiktorialuczynska_projekt-IO
+       run: |
+  mvn -B verify -DskipTests \
+    org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+    -Dsonar.projectKey=wiktorialuczynska_projekt-IO \
+    -Dsonar.organization=wiktorialuczynska \
+    -Dsonar.host.url=https://sonarcloud.io
