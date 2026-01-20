@@ -43,3 +43,11 @@ jobs:
             -Dsonar.projectKey=wiktorialuczynska_projekt-IO \
             -Dsonar.organization=wiktorialuczynska \
             -Dsonar.host.url=https://sonarcloud.io
+              deploy:
+    name: Deploy to Render
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Trigger Render deploy
+        run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
