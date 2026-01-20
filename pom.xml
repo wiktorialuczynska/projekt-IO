@@ -22,10 +22,8 @@
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <!-- SONAR -->
-        <sonar.organization>adik-318</sonar.organization>
-        <!-- opcjonalnie: jeśli używasz sonarcloud -->
-        <!-- <sonar.host.url>https://sonarcloud.io</sonar.host.url> -->
+        <sonar.organization>wiktorialuczynska</sonar.organization>
+             
     </properties>
 
     <dependencies>
