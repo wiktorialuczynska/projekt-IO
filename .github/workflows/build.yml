@@ -33,4 +33,9 @@ jobs:
       - name: Build and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=wiktorialuczynska_projekt-IO
+run: |
+  mvn -B verify \
+    org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+    -Dsonar.projectKey=wiktorialuczynska_projekt-IO \
+    -Dsonar.organization=wiktorialuczynska \
+    -Dsonar.host.url=https://sonarcloud.io
