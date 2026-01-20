@@ -1,4 +1,4 @@
-name: SonarQube
+name: CI + Sonar + Deploy
 
 on:
   push:
@@ -11,7 +11,6 @@ jobs:
   build:
     name: Build and analyze
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -39,7 +38,15 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           mvn -B verify -DskipTests \
-            org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
-            -Dsonar.projectKey=wiktorialuczynska_projekt-IO \
-            -Dsonar.organization=wiktorialuczynska \
-            -Dsonar.host.url=https://sonarcloud.io
+          org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+          -Dsonar.projectKey=wiktorialuczynska_projekt-IO \
+          -Dsonar.organization=wiktorialuczynska \
+          -Dsonar.host.url=https://sonarcloud.io
+
+  deploy:
+    name: Deploy to Render
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Render deploy
+        run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
